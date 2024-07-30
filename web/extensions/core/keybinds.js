@@ -1,5 +1,5 @@
 import {app} from "../../scripts/app.js";
-
+import {api} from "../../scripts/api.js";
 app.registerExtension({
 	name: "Comfy.Keybinds",
 	init() {
@@ -8,6 +8,10 @@ app.registerExtension({
 
 			// Queue prompt using ctrl or command + enter
 			if (modifierPressed && event.key === "Enter") {
+				if(event.altKey) {
+					api.interrupt();
+					return;
+				}
 				app.queuePrompt(event.shiftKey ? -1 : 0).then();
 				return;
 			}
